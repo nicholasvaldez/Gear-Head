@@ -1,14 +1,13 @@
+import { Link } from "react-router-dom"
+
 export const GearComp = ({ id, name, gearTypeId, datePurchased, pricePaid, description, toUpgrade}) => {
     
     
-    return <section>
-    <header>{name}</header>
-    <div>{gearTypeId}</div>
-    <div>{datePurchased}</div>
-    <div>{pricePaid}</div>
-    <div>{description}</div>
-    <div>{toUpgrade}</div>
-
+    return <section className="gear">
+     <div>
+      <Link to={`/gearList/${id}`}>{name}</Link>
+    </div> 
+  
   </section>
 }
 

@@ -1,43 +1,65 @@
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 export const GearForm = () => {
     //TODO Provide initial state for edit form
+    const navigate = useNavigate()
+    const {gearId} = useParams()
 
     const [gear, setGear] = useState({
         name: "",
+        gearTypeId: 0,
         datePurchased: "",
-        pricePaid: 0,
+        pricePaid: "",
         description: "",
-        toUpgrade: false
+        toUpgrade: false,
     })
+    
+    const [dropdownItem, setDropdownItem] = useState([])
 
     //TODO Get userownedgear info from api and update state
     const localGearUser = localStorage.getItem("gear_user")
   const gearUserObject = JSON.parse(localGearUser)
 
-  useEffect(
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/userOwnedGear?userId=${gearUserObject.id}&id=${gearId}&_expand=gearType`)
+            .then(res => res.json())
+            .then((gearData) => {
+                    const singleGear = gearData[0]
+                    setGear(singleGear)
+            }
+            )
+        },
+        [gearId]
+    )
+
+   useEffect(
     () => {
-      fetch(`http://localhost:8088/userOwnedGear?userId=${gearUserObject.id}`)
-      .then(res => res.json())
-      .then(
-        (gearData) => {
-            const gearObj = gearData[0]
-          setGear(gearObj)
-        }
-      );
-  }, []);
+        fetch(`http://localhost:8088/gearTypes?userInstrumentsId=${gearUserObject.instrumentOptionsId}&_expand=userInstruments`)
+        .then(res => res.json())
+        .then((data) => {
+            setDropdownItem(data)
+        })
+    },
+    []
+   )
+
+
+
+
+
+
+
+
 
   
   
   const handleSaveButtonClick = (event) => {
       event.preventDefault()
       
-      /*
-      TODO: Perform the PUT fetch() call here to update the profile.
-      Navigate user to home page when done.
-      */
 
-           return fetch(`http://localhost:8088/userOwnedGear?id=${gear.id}`, {
+            fetch(`http://localhost:8088/userOwnedGear/${gearId}`, {
                method: "PUT",
                headers: {
                    "Content-Type": "application/json"
@@ -45,7 +67,9 @@ export const GearForm = () => {
                body: JSON.stringify(gear)
            })
            .then(res => res.json())
-           .then(()=> {})
+           .then(() => {
+            navigate("/gearList")
+           })
        
     
     }
@@ -64,12 +88,30 @@ export const GearForm = () => {
                         defaultValue={gear.name}
                         onChange={
                             (evt) => {
-                                // TODO: Update specialty property
                                 const copy = {...gear}
                                 copy.name = evt.target.value
                                 setGear(copy)
                             }
                         } />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <select onChange={(evt) => {
+                        const copy = {...gear}
+                        copy.gearTypeId =parseInt(evt.target.value)
+                        setGear(copy)
+                    }}>
+                        <option value={0}>{`${gear?.gearType?.name}`}</option>
+                        {
+                            dropdownItem.map((item) => 
+                                <option key={`gearType--${item.id}`} value={item.id}>{item.name}</option>
+
+                            )
+
+                        }
+
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
@@ -124,13 +166,13 @@ export const GearForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="name">Uprgade Soon?:</label>
+                    <label htmlFor="name">Upgrade Soon?</label>
                     <input type="checkbox"
-                        defaultValue={gear.toUpgrade}
+                        checked={gear.toUpgrade}
                         onChange={
-                            (event) => {
-                                const copy = {...gear}
-                                copy.toUpgrade = event.target.checked //* .value would not work here because this is a checkbox
+                            (evt) => {
+                                const copy = { ...gear }
+                                copy.toUpgrade = evt.target.checked
                                 setGear(copy)
                             }
                         } />
@@ -139,7 +181,7 @@ export const GearForm = () => {
             <button
                 onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
                 className="btn btn-primary">
-                Save Profile
+                Save 
             </button>
         </form>
     )

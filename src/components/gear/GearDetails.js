@@ -12,6 +12,14 @@ export const GearDetails = () => {
     const localGearUser = localStorage.getItem("gear_user")
     const gearUserObject = JSON.parse(localGearUser)
 
+    const getAllGear = () => {
+        fetch(`http://localhost:8088/userOwnedGear`)
+        .then(res => res.json())
+        .then ((data) => {
+            setGear(data)
+        })
+    }
+
     useEffect(
         () => {
             fetch(`http://localhost:8088/userOwnedGear?userId=${gearUserObject.id}&id=${gearId}&_expand=gearType`)
@@ -52,7 +60,21 @@ export const GearDetails = () => {
                 </div>
             </fieldset>
             <button onClick={() => navigate("edit")}>Edit</button>
-            <button>Delete</button>
+            <button onClick={() => {
+                fetch(`http://localhost:8088/userOwnedGear/${gear.id}`, {
+                    method: "DELETE"
+                })
+                .then(() => {
+                   getAllGear()
+                }
+                )
+                .then(() => {
+                    navigate("/gearList")
+
+                })
+            
+            }
+            }>Delete</button>
 
         </>
     )

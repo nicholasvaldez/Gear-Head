@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { AddGearForm } from "../gear/AddGearForm"
 import { GearDetails } from "../gear/GearDetails"
 import { GearForm } from "../gear/GearForm"
 import { GearList } from "../gear/GearList"
@@ -17,6 +18,7 @@ export const ApplicationViews = () => {
 				<Route path="gearList" element={ <GearList/> } />
                 <Route path="gearList/:gearId" element={ <GearDetails /> } />
                 <Route path="gearList/:gearId/edit" element={ <GearForm /> } />
+                <Route path="gearList/add" element={ <AddGearForm /> } />
 
                 
 

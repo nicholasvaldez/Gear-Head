@@ -1,5 +1,7 @@
+import { Title } from "@mui/icons-material";
+import { List, ListItem, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Gear } from "../Gear";
 import { GearComp } from "./GearComp";
 
@@ -68,13 +70,6 @@ export const GearList = () => {
 
 
 
- /* const GearFilter = (event) => {
-  event.preventDefault()
-  const copy = {...gear}
-  const filteredCopy = copy.filter(item => item.gearTypeId === parseInt(event.target.value))
-  setFilteredGear(filteredCopy)
-  }  */
-
   return (
     <>
     <fieldset>
@@ -109,7 +104,9 @@ export const GearList = () => {
           setFilteredGear(gear)
           }
         }>All Gear</button>
-      <article className="gearDetails">
+
+      <List sx={ {ml:'40vw'}}>
+
         {
           filteredGear.map(g => <GearComp key={g.id}
             id={g.id} 
@@ -121,7 +118,35 @@ export const GearList = () => {
            /> )
                   
           }     
-  </article>
+
+            
+        </List>
+
+
+
+     
+        
+     
+      <Link color="primary" href="#" onClick={<></>} sx={{ mt: 3 }}>
+        Add Gear
+      </Link>
+    
+
+
+
+     {/*  <article className="gearDetails">
+        {
+          filteredGear.map(g => <GearComp key={g.id}
+            id={g.id} 
+            name={g.name}
+            gearTypeId={g.gearTypeId}
+            datePurchased={g.datePurchased}
+            pricePaid={g.pricePaid}
+            description={g.description}
+           /> )
+                  
+          }     
+  </article> */}
     </>
   );
 };

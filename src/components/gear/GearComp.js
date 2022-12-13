@@ -1,13 +1,19 @@
+import { CheckOutlined } from "@mui/icons-material"
+import { ListItem, Table, TableCell, TableHead, TableRow } from "@mui/material"
 import { Link } from "react-router-dom"
 
 export const GearComp = ({ id, name, gearTypeId, datePurchased, pricePaid, description, toUpgrade}) => {
     
     
     return <section className="gear">
-     <div>
-      <Link to={`/gearList/${id}`}>{name}</Link>
-    </div> 
-  
+      
+         <ListItem >
+            <div><Link to={`/gearList/${id}`}>{name}</Link></div> 
+          </ListItem>
+           
+       
+
+          
   </section>
 }
 

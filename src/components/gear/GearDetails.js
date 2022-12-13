@@ -69,7 +69,7 @@ export const GearDetails = () => {
                 }
                 )
                 .then(() => {
-                    navigate("/gearList")
+                    navigate("/")
 
                 })
             

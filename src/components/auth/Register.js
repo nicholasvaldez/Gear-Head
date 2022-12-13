@@ -1,6 +1,10 @@
+import { ThemeProvider } from "@emotion/react"
+import { Avatar, Button, CssBaseline, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { Box, Container } from "@mui/system"
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import "./Login.css"
+import { Link, useNavigate } from "react-router-dom"
+import { createTheme, ThemeProvider1 } from '@mui/material/styles';
+import { LockOutlined } from "@mui/icons-material"
 
 export const Register = (props) => {
      const [user, setUser] = useState({
@@ -70,61 +74,125 @@ export const Register = (props) => {
         setUser(copy)
     }
 
+    function Copyright(props) {
+        return (
+          <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+              Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+          </Typography>
+        );
+      }
+      
+      const theme = createTheme();
+      
+     
+
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please Register for GearHead</h1>
-                <fieldset>
-                    <label htmlFor="name"> Full Name </label>
-                    <input onChange={
+    <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs"> 
+            <CssBaseline />
+            <Box 
+            sx={{
+                marginTop:8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+            >
+            <Avatar sx={{ m:1, bgcolor: 'secondary.main'}}>
+                <LockOutlined />
+            </Avatar>    
+            <Typography component="h1" variant="h5">
+            Please Register for GearHead
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 3}} >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                    <TextField
+                    required
+                    fullWidth
+                    id="name"
+                    label="Full Name"
+                    name="name"
+                    autoComplete="name"
+                    onChange={
                         (evt) => {
                             const copy = {...user}
                             copy.name = evt.target.value
                             setUser(copy)    
                                 }
                             }      
-                      type="text" id="name" className="form-control"
-                           placeholder="Enter your name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email"> Email address </label>
-                    <input onChange={
-                        (evt) => {
-                            const copy = {...user}
-                            copy.email = evt.target.value
-                            setUser(copy)    
-                                }
-                            }  
-                        type="email" id="email" className="form-control"
-                        placeholder="Email address" required />
-                </fieldset>
-                <fieldset>
-                <div className="form-group">
-                    <select onChange={
-                        (evt) => {
-                            const copy = {...user}
-                            copy.instrumentOptionsId = parseInt(evt.target.value)
-                            setUser(copy)    
-                                }
-                            }  >
-                        <option value={0}>Choose Which Best Describes You</option>
+
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={
+                    (evt) => {
+                        const copy = {...user}
+                        copy.email = evt.target.value
+                        setUser(copy)    
+                            }
+                        }  
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                    <InputLabel id="dropdown">Choose Your instrument</InputLabel>
+                        <Select
+                            labelId="dropdownOptions"
+                            id="user-instrument"
+                            value={dropdownItem.name}
+                            label="Intruments"
+                            onChange={
+                                (evt) => {
+                                    const copy = {...user}
+                                    copy.instrumentOptionsId = parseInt(evt.target.value)
+                                    setUser(copy)    
+                                        }
+                                    }>
                         {
                             dropdownItem.map((item) => 
-                                <option key={`gearType--${item.id}`} value={item.id}>{item.name}</option>
-
+                            <MenuItem key={`gearType--${item.id}`} value={item.id}>{item.name}</MenuItem>
                             )
-
                         }
+                        </Select>
+                </FormControl>
 
-                    </select>
-                </div>
-            </fieldset>
+
+
             
-                <fieldset>
-                    <button type="submit"> Register </button>
-                </fieldset>
-            </form>
-        </main>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    >
+                    Sign Up
+                    </Button>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item>
+                            <Link to="/login" variant="body6">
+                            Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
+                        </Grid>
+                  </Grid>
+                </Box>
+            </Box>
+        </Container>
+    </ThemeProvider>
     )
 }
 

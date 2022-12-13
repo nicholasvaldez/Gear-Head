@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { Stack } from "@mui/system"
 import { Outlet, Route, Routes } from "react-router-dom"
 import { AddGearForm } from "../gear/AddGearForm"
@@ -12,7 +12,10 @@ export const ApplicationViews = () => {
             <Route path="/" element={
                 <>
                 <Stack alignItems="center">
-                    <h1>GearHead</h1>
+                    <Typography variant="h2">GearHead</Typography>
+                    <Box>
+
+                    </Box>
                     <Typography>Track Your Passion</Typography>
                 </Stack>
                     <GearList />

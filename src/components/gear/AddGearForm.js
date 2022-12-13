@@ -60,7 +60,7 @@ export const AddGearForm = () => {
         })
         .then(res => res.json())
         .then(() => {
-            navigate("/gearList")
+            navigate("/")
         }
         )
     }

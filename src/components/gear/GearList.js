@@ -1,5 +1,5 @@
 import { Title } from "@mui/icons-material";
-import { List, ListItem, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { List, ListItem, Paper, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Gear } from "../Gear";
@@ -104,32 +104,31 @@ export const GearList = () => {
           setFilteredGear(gear)
           }
         }>All Gear</button>
+      <Paper style={{maxHeight: 478, overflow: 'auto'}}>
+        <List 
+        sx={{ ml: '615px'}}>
 
-      <List sx={ {ml:'40vw'}}>
+          {
+            filteredGear.map(g => <GearComp key={g.id}
+              id={g.id} 
+              name={g.name}
+              gearTypeId={g.gearTypeId}
+              datePurchased={g.datePurchased}
+              pricePaid={g.pricePaid}
+              description={g.description}
+            /> )
+                    
+            }     
 
-        {
-          filteredGear.map(g => <GearComp key={g.id}
-            id={g.id} 
-            name={g.name}
-            gearTypeId={g.gearTypeId}
-            datePurchased={g.datePurchased}
-            pricePaid={g.pricePaid}
-            description={g.description}
-           /> )
-                  
-          }     
+              
+          </List>
 
-            
-        </List>
-
-
+      </Paper>
 
      
         
      
-      <Link color="primary" href="#" onClick={<></>} sx={{ mt: 3 }}>
-        Add Gear
-      </Link>
+     
     
 
 

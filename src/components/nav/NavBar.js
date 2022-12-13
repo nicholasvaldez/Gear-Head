@@ -22,7 +22,7 @@ export const NavBar = () => {
                   </IconButton>
                   <Stack direction="row" justifyContent="flex-end" alignItems="flex-start" spacing={2}>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Button color="inherit" variant="text" href="http://localhost:3000/">Dashboard</Button>
+                        <Button color="inherit" variant="text" href={"/"}>Dashboard</Button>
                     </Typography>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Button color="inherit" variant="text" href="http://localhost:3000/">Sold</Button>

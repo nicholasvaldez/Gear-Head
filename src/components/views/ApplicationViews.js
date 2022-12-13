@@ -25,7 +25,6 @@ export const ApplicationViews = () => {
             </Route> //!Putting the closed route tag here, means everything in the "/" path wont render on the following routes
                 {/* <Route path="gearList" element={ <GearList/> } /> */}
                 <Route path="gearList/:gearId" element={ <GearDetails /> } />
-
                 <Route path="gearList/:gearId/edit" element={ <GearForm /> } />
                 <Route path="gearList/add" element={ <AddGearForm /> } />
 

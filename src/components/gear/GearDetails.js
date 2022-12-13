@@ -1,3 +1,5 @@
+import { CheckBox } from "@mui/icons-material"
+import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
 import { click } from "@testing-library/user-event/dist/click"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -36,14 +38,85 @@ export const GearDetails = () => {
     
     return (
         <>
-            <section className="gearDeatils__info">
+        <Grid 
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}>
+        <Grid item>
+            <Card sx={{ width: 500, height: 500, mt:'50px'}}>
+                <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Gear Details
+                    </Typography>
+                    <Typography variant="h5" component="div" textAlign='center' sx={{fontWeight: 'bold'}}>
+                    {gear.name}
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary" textAlign='center'>
+                    {gear?.gearType?.name}
+                    </Typography>
+                    <Typography variant="body2" textAlign='center'>
+                    {gear.datePurchased}
+                    </Typography>
+                    <Typography textAlign='center'>
+                    ${gear.pricePaid}
+                    </Typography>
+                    <Typography>
+                    {gear.description}
+                    </Typography>
+                    
+                    <CheckBox defaultChecked={gear.toUpgrade}>Upgradeable?</CheckBox>
+                </CardContent>
+                <CardActions>
+                    <Button onClick={() => navigate("edit")} size="small">Edit</Button>
+                    <Button onClick={() => {
+                fetch(`http://localhost:8088/userOwnedGear/${gear.id}`, {
+                    method: "DELETE"
+                })
+                .then(() => {
+                   getAllGear()
+                }
+                )
+                .then(() => {
+                    navigate("/")
+
+                })
+            
+            }
+            } size="small">Delete</Button>
+                </CardActions>
+            </Card>
+        </Grid>
+    </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {/* <section className="gearDeatils__info">
                 <header className="gear__header">{gear.name}</header> 
                 <div className="gear__category">{gear?.gearType?.name}</div>
                 <div>{gear.datePurchased}</div>
                 <div>${gear.pricePaid}</div>
                 <div>{gear.description}</div>
-            </section>
-            <fieldset>
+            </section> */}
+           {/*  <fieldset>
                 <div className="gearDetails__check">
                     <label htmlFor="name">Upgrade soon?</label>
                     <input type="checkbox"
@@ -74,7 +147,7 @@ export const GearDetails = () => {
                 })
             
             }
-            }>Delete</button>
+            }>Delete</button> */}
 
         </>
     )

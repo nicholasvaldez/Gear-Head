@@ -1,5 +1,6 @@
 import { Title } from "@mui/icons-material";
-import { List, ListItem, Paper, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { FormControl, Grid, InputLabel, List, ListItem, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Gear } from "../Gear";
@@ -72,7 +73,31 @@ export const GearList = () => {
 
   return (
     <>
-    <fieldset>
+    <Grid container spacing={10}>
+      <Grid item md={2 }>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Filter By Type</InputLabel>
+        <Select
+          autoWidth
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Age"
+          onChange={(evt) => {
+            setGearTypeId(parseInt(evt.target.value))
+          } }
+        >
+          {
+                              dropdownItem.map((item) => 
+                                  <MenuItem key={`gearType--${item.id}`} value={item.id}>{item.name}</MenuItem>
+
+                              )
+
+          }
+        </Select>
+      </FormControl>
+      </Grid>
+    </Grid>
+  {/*   <fieldset>
                 <div className="form-group">
                     <select onChange={(evt) => {
                       setGearTypeId(parseInt(evt.target.value))
@@ -88,7 +113,7 @@ export const GearList = () => {
 
                     </select>
                 </div>
-            </fieldset>
+            </fieldset> */}
       <button onClick={() => navigate("/gearList/add")}>Add Gear</button>      
 
       <button 
@@ -104,7 +129,7 @@ export const GearList = () => {
           setFilteredGear(gear)
           }
         }>All Gear</button>
-      <Paper style={{maxHeight: 478, overflow: 'auto'}}>
+      {/* <Paper style={{maxHeight: 478, overflow: 'auto'}}>
         <List 
         sx={{ ml: '615px'}}>
 
@@ -123,29 +148,39 @@ export const GearList = () => {
               
           </List>
 
-      </Paper>
+      </Paper> */}
 
      
-        
-     
-     
-    
 
 
-
-     {/*  <article className="gearDetails">
-        {
-          filteredGear.map(g => <GearComp key={g.id}
-            id={g.id} 
-            name={g.name}
-            gearTypeId={g.gearTypeId}
-            datePurchased={g.datePurchased}
-            pricePaid={g.pricePaid}
-            description={g.description}
-           /> )
-                  
-          }     
-  </article> */}
+      
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Gear Name</TableCell>
+            <TableCell align="right">Price Paid</TableCell>
+            <TableCell align="right">Date Purchased</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredGear.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">${row.pricePaid}</TableCell>
+              <TableCell align="right">{row.datePurchased}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  
+  
     </>
   );
 };

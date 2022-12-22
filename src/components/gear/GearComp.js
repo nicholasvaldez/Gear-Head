@@ -6,10 +6,7 @@ export const GearComp = ({ id, name, gearTypeId, datePurchased, pricePaid, descr
     
     
     return <section className="gear">
-      
-       {/*   <ListItem >
-            <div><Link to={`/gearList/${id}`}>{name}</Link></div> 
-          </ListItem> */}
+    
            
           <ListItemButton 
           component="a"
@@ -20,7 +17,9 @@ export const GearComp = ({ id, name, gearTypeId, datePurchased, pricePaid, descr
             <ListItemText primary={`${name}`} />
           </ListItemButton>
        
+          
 
+          
           
   </section>
 }

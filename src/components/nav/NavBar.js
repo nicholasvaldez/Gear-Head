@@ -28,7 +28,7 @@ export const NavBar = () => {
                         <Button color="inherit" variant="text" href="http://localhost:3000/">Sold</Button>
                     </Typography>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Button color="inherit" variant="text" href="http://localhost:3000/">Wishlist</Button>
+                        <Button color="inherit" variant="text" href={"/wishlist"}>Wishlist</Button>
                     </Typography>
                     {
                 localStorage.getItem("gear_user")

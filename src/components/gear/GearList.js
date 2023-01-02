@@ -1,5 +1,5 @@
 import { Title } from "@mui/icons-material";
-import { FormControl, Grid, InputLabel, List, ListItem, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -161,6 +161,10 @@ export const GearList = () => {
             <TableCell>Gear Name</TableCell>
             <TableCell align="right">Price Paid</TableCell>
             <TableCell align="right">Date Purchased</TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -174,6 +178,9 @@ export const GearList = () => {
               </TableCell>
               <TableCell align="right">${row.pricePaid}</TableCell>
               <TableCell align="right">{row.datePurchased}</TableCell>
+              <TableCell><Button href={`gearList/${row.id}`}>View</Button></TableCell>
+              <TableCell><Button href={`gearList/${row.id}/edit`}>Edit</Button></TableCell>
+
             </TableRow>
           ))}
         </TableBody>

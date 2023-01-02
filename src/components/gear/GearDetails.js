@@ -1,10 +1,13 @@
 import { CheckBox } from "@mui/icons-material"
-import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+import * as React from 'react';
+import { Button, Card, CardActions, CardContent, Checkbox, FormControl, FormControlLabel, Grid, Typography } from "@mui/material"
 import { click } from "@testing-library/user-event/dist/click"
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { GearForm } from "./GearForm"
 import "./Gears.css"
+import UpgradeIcon from '@mui/icons-material/Upgrade';
+import { Stack } from "@mui/system"
 export const GearDetails = () => {
     const {gearId} = useParams()
     const [gear, setGear] = useState({})
@@ -51,41 +54,63 @@ export const GearDetails = () => {
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                     Gear Details
                     </Typography>
-                    <Typography variant="h5" component="div" textAlign='center' sx={{fontWeight: 'bold'}}>
-                    {gear.name}
-                    </Typography>
+                    {gear.toUpgrade ? 
+                    <Grid container spacing={2}>
+                        <Grid item xs={10}>
+                            <Typography variant="h5" component="div" textAlign='center' sx={{fontWeight: 'bold', mt:5}}>
+                            {gear.name} 
+                            </Typography> 
+                        </Grid>
+                        <Grid item xs={2}>
+                        <UpgradeIcon sx={{mt:5}} fontSize="large" color="primary"/>
+                        </Grid>
+                    </Grid>
+                    
+                    : <Typography variant="h5" component="div" textAlign='center' sx={{fontWeight: 'bold', mt:5}}>
+                    {gear.name} 
+                    
+                    </Typography>  }
+                    
                     <Typography sx={{ mb: 1.5 }} color="text.secondary" textAlign='center'>
                     {gear?.gearType?.name}
                     </Typography>
-                    <Typography variant="body2" textAlign='center'>
-                    {gear.datePurchased}
+                    <Typography variant="body1" textAlign='left' sx={{ mt: 10}}>
+                    Date Purchased: {gear.datePurchased}
                     </Typography>
-                    <Typography textAlign='center'>
-                    ${gear.pricePaid}
+                    <Typography variant="body1" textAlign='left' sx={{ mt: 2}}>
+                    Price Paid: ${gear.pricePaid}
                     </Typography>
-                    <Typography>
-                    {gear.description}
+                    <Typography variant="body1" sx={{ mt: 2}}>
+                    Description: {gear.description}
                     </Typography>
                     
-                    <CheckBox defaultChecked={gear.toUpgrade}>Upgradeable?</CheckBox>
+                   
+                        {/* <FormControlLabel control={<Checkbox checked={gear.toUpgrade} sx={{ mt: 2, ml: 50}}/>} label="" labelPlacement="start" /> */}
+                   
+                   
+                  
                 </CardContent>
-                <CardActions>
-                    <Button onClick={() => navigate("edit")} size="small">Edit</Button>
-                    <Button onClick={() => {
-                fetch(`http://localhost:8088/userOwnedGear/${gear.id}`, {
-                    method: "DELETE"
-                })
-                .then(() => {
-                   getAllGear()
-                }
-                )
-                .then(() => {
-                    navigate("/")
+                <CardActions sx={{ml:19, mt: 5}}>
+                        
+                            <Button onClick={() => navigate("edit")} size="small">Edit</Button>
+                        
 
-                })
-            
-            }
-            } size="small">Delete</Button>
+                            <Button onClick={() => {
+                                    fetch(`http://localhost:8088/userOwnedGear/${gear.id}`, {
+                                        method: "DELETE"
+                                    })
+                                    .then(() => {
+                                    getAllGear()
+                                    }
+                                    )
+                                    .then(() => {
+                                        navigate("/")
+
+                                    })
+                    
+                            }}size="small">Delete</Button>
+                        
+                   
                 </CardActions>
             </Card>
         </Grid>

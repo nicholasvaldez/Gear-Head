@@ -1,5 +1,5 @@
 import { Title } from "@mui/icons-material";
-import { Button, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, ButtonGroup, FormControl, Grid, InputLabel, List, ListItem, MenuItem, Paper, Select, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -73,30 +73,46 @@ export const GearList = () => {
 
   return (
     <>
-    <Grid container spacing={10}>
-      <Grid item md={2 }>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Filter By Type</InputLabel>
-        <Select
-          autoWidth
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Age"
-          onChange={(evt) => {
-            setGearTypeId(parseInt(evt.target.value))
-          } }
-        >
-          {
-                              dropdownItem.map((item) => 
-                                  <MenuItem key={`gearType--${item.id}`} value={item.id}>{item.name}</MenuItem>
+    <Stack direction="row" spacing={80} justifyContent="space-evenly"> 
+        <FormControl fullWidth  sx={{width: 250}} size="small">
+          <InputLabel id="demo-simple-select-label">Filter By Type</InputLabel>
+          <Select
+            autoWidth
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Age"
+            onChange={(evt) => {
+              setGearTypeId(parseInt(evt.target.value))
+            } }
+          >
+            {
+              dropdownItem.map((item) => 
+                <MenuItem key={`gearType--${item.id}`} value={item.id}>{item.name}</MenuItem>
+                )
 
-                              )
-
-          }
-        </Select>
-      </FormControl>
-      </Grid>
-    </Grid>
+            }
+          </Select>
+        </FormControl>
+      
+      <ButtonGroup variant="outlined" size="small" sx={{ml:120, mb:4}}>
+          <Button onClick={() => navigate("/gearList/add")} variant="outlined">Add Gear</Button>     
+          <Button 
+            variant="outlined"
+            onClick={
+              () => {
+              setUpgradeable(true)
+              }
+            }>Upgradeable</Button>
+          <Button 
+            variant="outlined"
+            onClick={
+              () => {
+              setUpgradeable(false)
+              setFilteredGear(gear)
+              }
+            }>All Gear</Button>
+          </ButtonGroup>
+        </Stack>
   {/*   <fieldset>
                 <div className="form-group">
                     <select onChange={(evt) => {
@@ -114,7 +130,7 @@ export const GearList = () => {
                     </select>
                 </div>
             </fieldset> */}
-      <button onClick={() => navigate("/gearList/add")}>Add Gear</button>      
+     {/*  <button onClick={() => navigate("/gearList/add")}>Add Gear</button>      
 
       <button 
         onClick={
@@ -128,7 +144,7 @@ export const GearList = () => {
           setUpgradeable(false)
           setFilteredGear(gear)
           }
-        }>All Gear</button>
+        }>All Gear</button> */}
       {/* <Paper style={{maxHeight: 478, overflow: 'auto'}}>
         <List 
         sx={{ ml: '615px'}}>

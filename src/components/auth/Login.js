@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
+import Image from "../auth/IMG/nopethizone.png";
 
 
 
@@ -51,7 +52,7 @@ export const Login = () => {
                 sm={4}
                 md={7}
                 sx={{
-                    backgroundImage: 'url(https://source.unsplash.com/random)',
+                    backgroundImage: `url(${Image})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundColor: (t) =>
                     t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -69,11 +70,11 @@ export const Login = () => {
                 alignItems: 'center',
                 }}
              >
-                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                 <Avatar sx={{ m: 1, bgcolor: 'default.main', mt:15 }}>
                     <LockOutlined />
                  </Avatar>
                       
-                <Typography variant="h1">GearHead</Typography>
+                {/* <Typography variant="h1">GearHead</Typography> */}
                 <Typography variant="h6">Please sign in</Typography>
                             
                 <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>

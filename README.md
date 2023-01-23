@@ -1,5 +1,5 @@
 
-![Logo](http://drive.google.com/uc?id=1E_5S2Z_Z-lFHp8y8_09qjZZBZqsG45EW)
+
 
 
 # GearHead 
